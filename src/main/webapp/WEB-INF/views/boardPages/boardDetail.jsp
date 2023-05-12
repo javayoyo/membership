@@ -45,6 +45,20 @@
       <th>contents</th>
       <td>${board.boardContents}</td>
     </tr>
+
+    <c:if test="${board.fileAttached == 1}">
+      <tr>
+        <th>image</th>
+        <td>
+          <c:forEach items="${boardFileList}" var="boardFile">
+            <img src="${pageContext.request.contextPath}/upload/${boardFile.storedFileName}"
+                 alt="" width="100" height="100">
+          </c:forEach>
+        </td>
+      </tr>
+    </c:if>
+
+
   </table>
   <button onclick="board_list()">목록</button>
   <button onclick="board_update()">수정</button>
@@ -56,12 +70,26 @@
   const board_list = () => {
     location.href = "/board/list";
   }
+
   const board_update = () => {
     <c:if test="${board.boardWriter == sessionScope.loginEmail}">
     const id = '${board.id}';
     location.href = "/board/update?id=" + id;
 
     </c:if>
+
   }
+
+  const board_delete = () => {
+    <c:if test="${board.boardWriter == sessionScope.loginEmail}">
+    const id = '${board.id}';
+    location.href = "/board/delete?id=" + id;
+
+    </c:if>
+
+  }
+
+
+
 </script>
 </html>
