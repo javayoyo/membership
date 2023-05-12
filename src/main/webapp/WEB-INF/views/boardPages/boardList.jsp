@@ -43,11 +43,7 @@
     </table>
 
 
-
-
 </div>
-
-
 
 
 <%@include file="../component/footer.jsp"%>

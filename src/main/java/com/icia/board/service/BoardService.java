@@ -6,6 +6,7 @@ import com.icia.board.dto.PageDTO;
 import com.icia.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class BoardService {
 
     public void save(BoardDTO boardDTO) throws IOException {
         // 파일 있음, 없음 확인하기
-        if(boardDTO.getBoardFile().isEmpty()) {
+        if(boardDTO.getBoardFile().get(0).isEmpty()) {
             // 파일 없음
             System.out.println("파일없음");
             boardDTO.setFileAttached(0);
@@ -38,27 +39,28 @@ public class BoardService {
             System.out.println("파일있음");
             boardDTO.setFileAttached(1);
             BoardDTO dto = boardRepository.save(boardDTO);
-            // 원본 파일 이름 가져오기
-            String originalFilename =   boardDTO.getBoardFile().getOriginalFilename();
-            System.out.println("originalFilename = " + originalFilename);
-            //저장용 이름 만들기
-            System.out.println(System.currentTimeMillis());
-            System.out.println(UUID.randomUUID().toString());
-            String storedFileName = System.currentTimeMillis() +"-" + originalFilename;
-            System.out.println("storedFileName = " + storedFileName);
-            // 저장을 위한 BoardFileDTO 세팅
-            BoardFileDTO boardFileDTO = new BoardFileDTO();
-            boardFileDTO.setOriginalFileName(originalFilename);
-            boardFileDTO.setStoredFileName(storedFileName);
-            boardFileDTO.setBoardId(dto.getId());
-            // 로컬에 파일 저장
-            // 저장할 경로 설정 (저장할 폴더 + 저장할이름) >> \ 백슬래시 2개로 감싸기 필수
-            String savePath = "D:\\springframework_img\\" + storedFileName;
-            // 저장처리 > 경로를 통해 저장하겠다
-            boardDTO.getBoardFile().transferTo(new File(savePath));
+            for(MultipartFile boardFile: boardDTO.getBoardFile()) {
+                // 원본 파일 이름 가져오기
+                String originalFilename = boardFile.getOriginalFilename();
+                System.out.println("originalFilename = " + originalFilename);
+                //저장용 이름 만들기
+                System.out.println(System.currentTimeMillis());
+                System.out.println(UUID.randomUUID().toString());
+                String storedFileName = System.currentTimeMillis() + "-" + originalFilename;
+                System.out.println("storedFileName = " + storedFileName);
+                // 저장을 위한 BoardFileDTO 세팅
+                BoardFileDTO boardFileDTO = new BoardFileDTO();
+                boardFileDTO.setOriginalFileName(originalFilename);
+                boardFileDTO.setStoredFileName(storedFileName);
+                boardFileDTO.setBoardId(dto.getId());
+                // 로컬에 파일 저장
+                // 저장할 경로 설정 (저장할 폴더 + 저장할이름) >> \ 백슬래시 2개로 감싸기 필수
+                String savePath = "D:\\springframework_img\\" + storedFileName;
+                // 저장처리 > 경로를 통해 저장하겠다
+                boardFile.transferTo(new File(savePath));
 //    transferTo 오류 발생 시 >  throws IOException 설정하기
-            boardRepository.saveFile(boardFileDTO);
-
+                boardRepository.saveFile(boardFileDTO);
+            }
 
         }
 

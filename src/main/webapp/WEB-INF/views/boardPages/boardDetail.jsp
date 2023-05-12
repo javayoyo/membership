@@ -23,6 +23,7 @@
 
 <div id="section">
   <table>
+
     <tr>
       <th>id</th>
       <td>${board.id}</td>
