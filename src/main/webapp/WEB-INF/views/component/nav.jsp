@@ -27,6 +27,9 @@
         <li>
             <a href="/board/list">글목록</a>
         </li>
+        <li>
+            <a href="/board/paging">페이징목록</a>
+        </li>
 
 
         <li class="admin-name" id="admin-area">

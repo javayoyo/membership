@@ -22,7 +22,9 @@
         <input type="text" name="boardTitle" value="${board.boardTitle}"> <br>
         <input type="text" name="boardWriter" value="${board.boardWriter}" readonly> <br>
         <textarea name="boardContents" cols="30" rows="10">${board.boardContents}</textarea> <br>
-        <button type="submit">수정</button>
+        <input type="text" name="memberPass" id="member-pass" placeholder="회원 비밀번호를 입력하세요"> <br>
+
+        <input type="button" onclick="update_req()" value="수정">
     </form>
 </div>
 
@@ -30,4 +32,16 @@
 
 
 </body>
+<script>
+    const update_req = () => {
+        const passInput = document.getElementById("member-pass").value;
+        const passDB = '${member.memberPassword}';
+        if(passInput == passDB) {
+            document.updateForm.submit();
+        }else {
+            alert("비밀번호가 일치하지 않습니다!");
+        }
+
+    }
+</script>
 </html>
