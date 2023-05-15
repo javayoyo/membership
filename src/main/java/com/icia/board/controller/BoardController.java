@@ -75,6 +75,7 @@ public class BoardController {
     public String findById(@RequestParam("id") Long id, Model model,
                            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                            @RequestParam(value = "q", required = false, defaultValue = "") String q,
+
                            @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type)
     {
         boardService.updateHits(id);
