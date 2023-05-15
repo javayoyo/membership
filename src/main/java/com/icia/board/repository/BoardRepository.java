@@ -43,7 +43,7 @@ public class BoardRepository {
     }
 
     public List<BoardFileDTO> findFile(Long boardId) {
-        return sql.selectOne("Board.findFile" , boardId);
+        return sql.selectList("Board.findFile" , boardId);
     }
 
     public List<BoardDTO> pagingList(Map<String, Integer> pagingParams) {
