@@ -168,7 +168,7 @@
   }
 
   const board_delete = () => {
-    <c:if test="${board.boardWriter == sessionScope.loginEmail}">
+    <c:if test="${board.boardWriter == sessionScope.loginEmail or sessionScope.loginEmail == 'admin'}">
     const id = '${board.id}';
     location.href = "/board/delete?id=" + id;
 
