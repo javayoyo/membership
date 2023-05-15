@@ -157,7 +157,7 @@
             type +  "&q=" + q;
   }
 
-  // 본인이 아니면 수정, 삭제 버튼 기능 비활성화로 클릭해도 미실행
+  // 본인이 아니면 수정, 삭제 버튼 기능 비활성화로 클릭해도 미실행(수정,삭제확인완)
   const board_update = () => {
     <c:if test="${board.boardWriter == sessionScope.loginEmail}">
     const id = '${board.id}';

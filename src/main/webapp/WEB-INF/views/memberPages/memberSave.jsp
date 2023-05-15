@@ -135,21 +135,29 @@
         // const password = document.getElementById("member-password").value;
         // const name = document.getElementById("member-name").value;
         // const mobile = document.getElementById("member-mobile").value;
-        if(saveForm.memberEmail.value.length== 0) {
-            alert("이메일이 입력되지않았습니다");
+
+
+        const result1 = document.getElementById("email-check-result");
+        const result2 = document.getElementById("mobile-check-result");
+        const result3 = document.getElementById("password-check-result");
+        const result4 = document.getElementById("name-check-result");
+
+
+        if(saveForm.memberEmail.value.length== 0 || result1.style.color === "red"){
+            alert("이메일 형식에 맞지 않습니다.");
             saveForm.memberEmail.focus();
             return false;
-        } else if(saveForm.memberPassword.value.length== 0) {
-            alert("비밀번호가 입력되지않았습니다");
+        } else if(saveForm.memberPassword.value.length== 0 || result2.style.color === "red") {
+            alert("비밀번호 형식에 맞지 않습니다.");
             saveForm.memberPassword.focus();
             return false;
 
-        }else if(saveForm.memberName.value.length== 0) {
-            alert("이름이 입력되지않았습니다");
+        }else if(saveForm.memberName.value.length== 0 || result3.style.color === "red" ) {
+            alert("이름 형식에 맞지 않습니다.");
             saveForm.memberName.focus();
             return false; }
-        else if(saveForm.memberMobile.value.length== 0){
-            alert("전화번호가 입력되지않았습니다");
+        else if(saveForm.memberMobile.value.length== 0 || result4.style.color === "red"){
+            alert("전화번호 형식에 맞지 않습니다.");
             saveForm.memberMobile.focus();
             return false;
         }else {
