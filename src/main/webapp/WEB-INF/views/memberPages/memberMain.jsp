@@ -40,7 +40,7 @@
 
   }
   const member_delete = () => {
-    location.href = "/member/list";
+    location.href = "/member/delete";
   }
 
 
